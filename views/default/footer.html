@@ -1,0 +1,30 @@
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                {{ widget .widgets "account" }}
+                {{ widget .widgets "toplevel" }}
+                {{ widget .widgets "admin" }}
+            </div>
+            <div class="clearfix"></div>
+        </div> <!-- row -->
+    </div> <!-- container-fluid-->
+</div> <!-- /container -->
+
+<div class="container" id="footer">
+    <div class="footer">
+        {{ if isDev }} <b>Development mode</b> |
+        Page generated in {{ .microtime }} | {{ end }} {{ serverName }} - Engine by <a href="{{ url "subtopic" "credits" }}">Castro</a>
+    
+        {{ template "footer" . }}
+    </div>
+</div> <!-- /container -->
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js" integrity="sha384-XEerZL0cuoUbHE4nZReLT7nx9gQrQreJekYhJD9WNWhH8nEW+0c5qq7aIo2Wl30J" crossorigin="anonymous"></script>
+{{ template "scriptIncludes" . }}
+</body>
+</html>

@@ -1,0 +1,54 @@
+<div class="card">
+    {{ if .logged }}
+    <div class="card-heading">
+        <i class="fas fa-users-cog"></i> My account
+    </div>
+    {{ else }}
+    <div class="card-heading">
+        <i class="fas fa-users-cog"></i> Login
+    </div>
+    {{ end }}
+    <div class="card-body">
+        {{ if .logged }}
+        <ul class="list-group list-widget">
+            <li class="list-group-item"><a class="light" href="{{ url "subtopic" "account" "dashboard" }}">Dashboard</a></li>
+            <li class="list-group-item"><a class="light" href="{{ url "subtopic" "account" "createchar" }}">Create character</a></li>
+            {{ if .shop }}
+            <li class="list-group-item"><a class="light" href="{{ url "subtopic" "account" "checkout" }}">Checkout history</a></li>
+            {{ end }}
+            {{ if .paypal }}
+            <li class="list-group-item"><a class="light" href="{{ url "subtopic" "account" "paypal" }}">PayPal payments</a></li>
+            {{ end }}
+            {{ if .paygol }}
+            <li class="list-group-item"><a class="light" href="{{ url "subtopic" "account" "paygol" }}">PayGol payments</a></li>
+            {{ end }}
+            {{ if .fortumo }}
+            <li class="list-group-item"><a class="light" href="{{ url "subtopic" "account" "fortumo" }}">Fortumo payments</a></li>
+            {{ end }}
+        </ul>
+        {{ else }}
+        <form method="POST" action="{{ url "subtopic" "login" }}">
+        <input type="hidden" name="_csrf" value="{{ .csrfToken }}">
+            <div class="form-group">
+                <input type="text" class="form-control" id="input-account-name" name="account-name" placeholder="Account name">
+            </div>
+            <div class="form-group">
+                <input type="password" autocomplete="off" class="form-control" id="input-password" name="password" placeholder="Account password">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-sm btn-primary">Login</button>
+                <a href="{{ url "subtopic" "register" }}" role="button" class="btn btn-sm btn-secondary">Register</a>
+            </div>
+        </form>
+        {{ end }}
+    </div>
+    {{ if .logged }}
+    <div class="card-footer">
+        <form method="POST" action="{{ url "subtopic" "logout" }}">
+            <input type="hidden" name="_csrf" value="{{ .csrfToken }}">
+            <button type="submit" class="btn btn-sm btn-danger">Logout</button>
+            <button type="button" class="btn btn-sm btn-primary">{{ .account.castro.Points }} Points</button>
+        </form>
+    </div>
+    {{ end }}
+</div>

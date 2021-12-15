@@ -1,0 +1,37 @@
+{{ template "header.html" . }}
+{{ if .articles }}
+<div class="fr-view">
+    {{ range $index, $element := .articles }}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="news-box">
+                <h3>{{ $element.title }}</h3>
+                <span class="badge badge-primary">
+                    {{ $element.created.Result }}
+                </span>
+                <hr>
+                <p>
+                    {{ str2html $element.text }}
+                </p>
+            </div>
+        </div>
+    </div>
+    {{ end }}
+    <ul class="pagination pagination-sm">
+        {{ if .paginator.prev }}
+        <li><a href="{{ url "subtopic" "index" }}?page={{ .paginator.firstpage.num }}">First</a></li>
+        <li><a href="{{ url "subtopic" "index" }}?page={{ .paginator.prevnumber }}">&lt;</a></li>
+        {{ end }}
+        </li>
+        {{ if $.paginator.last }}
+        <li><a href="{{ url "subtopic" "index" }}?page={{ .paginator.lastnumber }}">&gt;</a></li>
+        <li><a href="{{ url "subtopic" "index" }}?page={{ .paginator.lastpage.num }}">Last</a></li>
+        {{ end }}
+    </ul>
+</div>
+{{ else }}
+<div class="news-box">
+    <p>There are no articles</p>
+</div>
+{{ end }}
+{{ template "footer.html" . }}

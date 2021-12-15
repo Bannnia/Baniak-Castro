@@ -1,0 +1,38 @@
+{{ template "header.html" . }}
+<h3>Castro AAC contributors</h3>
+<hr>
+<p>
+    Castro AAC is made thanks to the following people:
+</p>
+{{if .contributors }}
+<div class="row">
+    {{ range $index, $contributor := .contributors }}
+    <div class="col-md-2 col-xs-3" style="text-align: center;">
+        <a href="{{ $contributor.html_url }}">
+            <img src="{{ $contributor.avatar_url }}" class="img-fluid img-thumbnail rounded">
+            <br />
+            {{ $contributor.login }} <span class="badge badge-info">{{ $contributor.contributions }}</span>
+        </a>
+    </div>
+    {{ end }}
+</div>
+<br />
+{{ end }}
+<h3>Latest commits</h3>
+<hr>
+{{ if .commits }}
+<div class="list-group">
+    {{ range $index, $commit := .commits }}
+    <a href="{{ $commit.html_url }}" target="_blank" class="list-group-item">
+        <h4 class="list-group-item-heading">{{ $commit.commit.message }}</h4>
+        <p class="list-group-item-text">{{ $commit.commit.committer.date }} by {{ $commit.committer.login }}</p>
+    </a>
+    {{ end }}
+</div>
+{{ end }}
+<h3>About</h3>
+<hr>
+<p>
+    <a target="_blank" href="https://castroaac.org">Learn more about Castro AAC</a>
+</p>
+{{ template "footer.html" . }}

@@ -1,0 +1,145 @@
+{{ template "header.html" . }}
+<h3>Dashboard</h3>
+<hr>
+{{ if .success }}
+<div class="alert alert-success" role="alert">
+    <strong>Success!</strong> {{ .success }}
+</div>
+{{ end }}
+{{ if .validationError }}
+<div class="alert alert-danger" role="alert">
+    <strong>Error!</strong> {{ .validationError }}
+</div>
+{{ end }}
+{{ if .account.PendingDeletions }}
+<form id="form-character-undelete" action="{{url "subtopic" "account" "undeletechar" }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ .csrfToken }}">
+</form>
+    {{ range $index, $character := .account.PendingDeletions }}
+    <div class="alert alert-info" role="alert">
+        <strong>Pending deletion!</strong> The character {{ $character.name }} is pending deletion and will be deleted on {{ $character.deletion.Result }}.
+        <br>
+        <button class="btn btn-danger btn-sm" form="form-character-undelete" type="submit" name="undelete-character" value="{{ $character.name }}">Cancel</button>
+    </div>
+    {{ end }}
+{{ end }}
+<table class="table table-striped">
+    <thead class="thead-inverse">
+        <tr>
+            <th colspan="2">Account security</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>Two-factor</th>
+            <td>
+                {{ if .twofa }}
+                <button class="btn btn-success btn-sm">Enabled</button>
+                {{ else }}
+                <a role="button" href="{{ url "subtopic" "account" "twofa" "enable" }}" class="btn btn-danger btn-sm">Disabled</a>
+                {{ end }}
+            </td>
+        </tr>
+    </tbody>
+</table>
+<table class="table table-striped">
+    <thead class="thead-inverse">
+    <tr>
+        <th colspan="2">Account information</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th>Account type</th>
+        {{ if .account.IsPremium }}
+        <td>
+            Premium account
+        </td>
+        {{ else }}
+        <td>
+            Normal account
+        </td>
+        {{ end }}
+    </tr>
+    {{ if .account.IsPremium }}
+    <tr>
+        <th>Expires</th>
+        <td>{{ .account.PremiumEnds.Result }} ({{ .account.PremiumDays }} days remaining)</td>
+    </tr>
+    {{ end }}
+    <tr>
+        <th>Creation date</th>
+        <td>{{ .account.Creation.Result }}</td>
+    </tr>
+    <tr>
+        <th></th>
+        <td>
+            <a role="button" href="{{ url "subtopic" "account" "changepassword" }}" class="btn btn-sm btn-primary">
+            Change password
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <th></th>
+        <td>
+            <a role="button" href="{{ url "subtopic" "account" "changemail" }}" class="btn btn-sm btn-default">
+            Change email
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<h3>My Characters</h3>
+<hr>
+<form id="form-character-delete" action="{{ url "subtopic" "account" "deletechar" }}" method="POST">
+    <input type="hidden" name="_csrf" value="{{ .csrfToken }}">
+</form>
+<table class="table table-striped">
+    <thead class="thead-inverse">
+    <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Vocation</th>
+        <th>Level</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{ if .list }}
+        {{ range $index, $element := .list }}
+        <tr>
+            <th scope="row">{{ $index }}</th>
+            <td>
+                <a href="{{ url "subtopic" "community" "view" }}?name={{ urlEncode $element.name }}">
+                {{ $element.name }}
+                </a>
+            </td>
+            <td>{{ vocation $element.vocation }}</td>
+            <td>{{ $element.level }}</td>
+            <td>
+                {{ if eqNumber $element.deletion 0 }}
+                <button class="btn btn-sm btn-danger require-confirmation" type="submit" form="form-character-delete" name="delete-character" value="{{ $element.name }}">Delete</button>
+                {{ else }}
+                <button class="btn btn-sm btn-default" form="form-character-undelete" type="submit" name="undelete-character" value="{{ $element.name }}">Cancel</button>
+                {{ end }}
+            </td>
+        </tr>
+        {{ end }}
+    {{ else }}
+        <tr>
+            <td colspan="4">No characters made yet</td>
+        </tr>
+    {{ end }}
+    </tbody>
+</table>
+{{ template "footer.html" . }}
+<script>
+    $(document).ready(function(){
+        $(".require-confirmation").click(function(e){
+            var response = confirm("Are you sure that you want to delete character: "+$(this).val()+"?")
+            if (response == false) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>

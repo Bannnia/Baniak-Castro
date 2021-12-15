@@ -1,0 +1,257 @@
+.main {
+    margin-top: 40px;
+}
+
+.navbar-info {
+    padding: 15px;
+    background-color: #F5F5F5;
+}
+
+.navbar-expand-md {
+    background-color: #333333;
+}
+
+.navbar-expand-sm {
+    height: 58px;
+    background-color: #333333;
+}
+
+.navbar-nav>li>a {
+    line-height: 35px;
+}
+
+.navbar .nav-item {
+    margin: 0 6px;
+}
+
+.navbar .nav-item:hover {
+    background-color: rgba(0,0,0,.3);
+}
+
+.navbar .nav-link {
+    color: white;
+}
+
+.navbar .nav-link:hover {
+    color: rgba(245,245,245,0.6);
+}
+
+.dropdown:hover>.dropdown-menu {
+  display: block;
+}
+
+.dropdown-item {
+    color: white;
+}
+
+.dropdown-item:hover {
+    background-color: rgba(0,0,0,.3);
+    color: white;
+}
+
+.dropdown-menu {
+    border-radius: 0;
+    background-color: #333333;
+}
+
+.small-info {
+    font-size: 12px;
+}
+
+.news-box {
+    margin-bottom: 35px;
+    word-wrap: break-word;
+}
+
+.info-panel {
+    padding: 20px;
+    margin-bottom: 10px;
+}
+
+.black {
+    background-color: #333333;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.white-hr {
+    border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.light {
+    color: #6bb9fd;
+}
+
+.light:hover {
+    color: #2097ff;
+}
+
+.titleheader {
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+
+.titleheader h5 {
+    font-family: Simonetta;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, .5);
+    color: #fff;
+}
+
+.titleheader h1 a {
+    color: #008cba;
+    font-family: Simonetta;
+}
+
+.titleheader h1 a:hover {
+    text-decoration: none;
+    color: rgba(0,140,186,0.7);
+}
+
+.col-sm-3.sidebar {
+    margin-top: 25px;
+}
+
+.thead-inverse {
+    background-color: #34383B;
+    color: white;
+}
+
+#message-info {
+    background-color: #34383B;
+    color: #D2D3CE;
+    padding: 10px;
+}
+
+.container-forum {
+    padding: 15px;
+}
+
+.progress {
+    margin-bottom: 1px;
+    padding: 0px !important;
+}
+
+#message-box {
+    padding-top: 20px;
+}
+
+#message-box + #message-box {
+    margin-top: 25px;
+    border-top: 1px solid #34383B;
+}
+
+.progress-bar {
+    font-size: 9px;
+}
+
+.signature {
+    display: block;
+    margin: 0 auto;
+}
+
+#guild-tabs {
+    margin-top: 20px;
+}
+
+.tab-content {
+    margin-top: 20px;
+}
+
+.footer {
+    background-color: #333333;
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #4a4a4a;
+}
+
+body {
+    background-color: black;
+    background-image: url("/images/bg.png");
+    font-size: 15px;
+    line-height: 1.2;
+}
+
+#footer {
+    margin-bottom: 30px;
+}
+
+tr.skills {
+    text-align: center;
+}
+
+.box {
+    background-color: #EBEBEB;
+    padding: 29px 20px 15px 15px;
+}
+
+.pattern-box {
+    background: linear-gradient(rgba(255,255,255,.2), rgba(255,255,255,.2)), url("/images/pattern_box.jpg");
+}
+
+.black-box {
+    border: 1px solid #4a4a4a;
+    padding: 0px;
+    background-color: #333333;
+    width: 100%;
+    height: 50px;
+}
+
+@media (min-width: 1200px) {
+
+    .container {
+        width: 1210px;
+    }
+
+}
+
+.card-body {
+    padding: 10px;
+}
+
+.card-body h3 {
+    color: #008cba;
+}
+
+.card {
+    border: 1px solid #c8c8c8;
+    box-shadow: 0 1px 5px 0 #c8c8c8;
+    padding: 10px;
+    background-color: white;
+    margin: 8px;
+}
+
+.list-widget {
+    margin-bottom: 0px;
+}
+
+.date-box {
+    background-color: #333333;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+#shop-overview-text {
+    margin-bottom: 25px;
+    margin-top: 25px;
+}
+
+.btn {
+    border-radius: 0;
+}
+
+.main-container {
+    /*font-family: Simonetta;*/
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.footer {
+    color: whitesmoke;
+    font-size: 14px;
+}
+
+.list-group-item {
+    padding-top: 6px;
+    padding-bottom: 6px;
+}

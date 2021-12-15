@@ -1,0 +1,43 @@
+{{ template "header.html" . }}
+<h3>Create a new character</h3>
+<hr>
+{{ if .validationError }}
+<div class="alert alert-danger" role="alert">
+    <strong>Error!</strong> {{ .validationError }}
+</div>
+{{ end }}
+<form method="POST">
+    <input type="hidden" name="_csrf" value="{{ .csrfToken }}">
+    <div class="form-group">
+        <label for="input-character-name">Character name</label>
+        <input type="text" class="form-control" id="input-character-name" name="character-name" placeholder="Character name">
+        <small class="form-text text-muted">Your character name must only use letters A-Z and spaces</small>
+    </div>
+    <div class="form-group">
+        <label for="character-vocation">Character gender</label>
+        <select name="character-gender" class="form-control" id="character-gender">
+            <option value="1">Male</option>
+            <option value="0">Female</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="character-vocation">Character vocation</label>
+        <select name="character-vocation" class="form-control" id="character-vocation">
+            {{ range $index, $element := .vocations }}
+            <option value="{{ $element.Name }}">{{ $element.Name }}</option>
+            {{ end }}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="character-town">Character town</label>
+        <select name="character-town" class="form-control" id="character-town">
+            {{ range $index, $element := .towns }}
+            <option value="{{ $element.Name }}">{{ $element.Name }}</option>
+            {{ end }}
+        </select>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-sm btn-primary">Create</button>
+    </div>
+</form>
+{{ template "footer.html" . }} 

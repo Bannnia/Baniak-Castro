@@ -1,0 +1,51 @@
+{{ template "header.html" . }}
+<h3>House list</h3>
+<hr>
+<form method="GET">
+    <div class="form-group">
+        <select name="town" class="form-control" id="select-town">
+            {{ range $index, $element := .towns }}
+                <option {{if $.current }} {{ if eq $element.Name $.current.Name }} selected {{ end }} {{ end }} value="{{ $element.ID }}">{{ $element.Name }}</option>
+            {{ end }}
+        </select>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-block btn-primary">Search</button>
+    </div>
+</form>
+<table id="house-list" class="table table-striped">
+    <thead class="thead-inverse">
+        <tr>
+            <th>Name</th>
+            <th>Size</th>
+        </tr>
+    </thead>
+    <tbody>
+    {{ if .list }}
+        {{ range $index, $element := .list }}
+        <tr>
+            <td>
+                <a href="{{ url "subtopic" "library" "houses" "view" }}?id={{ $element.ID }}">{{ $element.Name }}</a>
+            </td>
+            <td>{{ $element.Size }}</td>
+        </tr>
+        {{ end }}
+    {{ else }}
+    <tr>
+        <td colspan="2">No houses match this criteria</td>
+    </tr>
+    {{ end }}
+    </tbody>
+</table>
+<ul class="pagination pagination-sm">
+    {{ if .paginator.prev }}
+    <li><a href="{{ url "subtopic" "library" "houses" }}?page={{ .paginator.firstpage.num }}{{ if .townId }}&town={{ .townId }} {{ end }}">First</a></li>
+    <li><a href="{{ url "subtopic" "library" "houses" }}?page={{ .paginator.prevnumber }}{{ if .townId }}&town={{ .townId }} {{ end }}">&lt;</a></li>
+    {{ end }}
+    </li>
+    {{ if $.paginator.last }}
+    <li><a href="{{ url "subtopic" "library" "houses" }}?page={{ .paginator.lastnumber }}{{ if .townId }}&town={{ .townId }} {{ end }}">&gt;</a></li>
+    <li><a href="{{ url "subtopic" "library" "houses" }}?page={{ .paginator.lastpage.num }}{{ if .townId }}&town={{ .townId }} {{ end }}">Last</a></li>
+    {{ end }}
+</ul>
+{{ template "footer.html" . }}

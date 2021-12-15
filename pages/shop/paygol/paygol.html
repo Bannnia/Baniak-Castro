@@ -1,0 +1,32 @@
+{{ template "header.html" . }}
+<h3>Buypoints using PayGol</h3>
+<hr>
+{{ if .validationError }}
+<div class="alert alert-danger" role="alert">
+    <strong>Error!</strong> {{ .validationError }}
+</div>
+{{ end }}
+{{ if .success }}
+<div class="alert alert-success" role="alert">
+    <strong>Success!</strong> {{ .success }}
+</div>
+{{ end }}
+<form name="pg_frm" method="post" action="https://www.paygol.com/pay" >
+    <input type="hidden" name="pg_serviceid" value="{{ .service }}">
+    <input type="hidden" name="pg_currency" value="EUR">
+    <input type="hidden" name="pg_custom" value="{{ .custom }}">
+
+    <!-- With Dropdown -->
+    <div class="form-group">
+        <select class="form-control" name="pg_price">
+            <option value="1" selected>5 EUR</option>
+            <option value="2">6 EUR</option>
+            <option value="3">7 EUR</option>
+        </select>
+    </div>
+
+    <input type="hidden" name="pg_return_url" value="">
+    <input type="hidden" name="pg_cancel_url" value="">
+    <button type="submit" class="btn btn-success">Proceed</button>
+</form>
+{{ template "footer.html" . }}

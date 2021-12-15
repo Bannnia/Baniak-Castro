@@ -1,0 +1,1 @@
+app.Custom.CharacterDeletionDelay = time:parseDuration("72h")

@@ -1,0 +1,9 @@
+CREATE TABLE `castro_map` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(75) DEFAULT NULL,
+  `data` blob,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `last_modtime` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

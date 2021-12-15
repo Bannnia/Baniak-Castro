@@ -1,0 +1,25 @@
+{{ if .admin }}
+<div class="card">
+    <div class="card-heading">
+        <span class="fas fa-cogs"></span> Admin panel
+    </div>
+    <div class="card-body">
+        <ul class="list-group list-widget">
+            <li class="list-group-item">
+                <a class="light" href="{{ url "subtopic" "admin" "shop" }}">Shop</a>
+            </li>
+            <li class="list-group-item">
+                <a class="light" href="{{ url "subtopic" "admin" "articles" "list" }}">Articles</a>
+            </li>
+            {{ if .pluginEnabled }}
+            <li class="list-group-item">
+                <a class="light" href="{{ url "subtopic" "admin" "extensions" }}">Extensions</a>
+            </li>
+            {{ end }}
+            <li class="list-group-item">
+                <a class="light" href="{{ url "subtopic" "admin" "bans" }}">Banishments</a>
+            </li>
+        </ul>
+    </div>
+</div>
+{{ end }}

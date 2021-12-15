@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrfToken" content="">
+
+    <link rel="icon" href="/images/favicon.ico">
+
+    <title>{{ serverName }}</title>
+
+    <link href='https://fonts.googleapis.com/css?family=Simonetta' rel='stylesheet' type='text/css'>
+    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <!-- fontawesome (glyphicons) -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+
+    <link href="/css/style.css" rel="stylesheet">
+    
+    {{ if captchaEnabled }}
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    {{ end }}
+
+    {{ template "head" . }}
+</head>
+<body>
+
+<nav class="navbar navbar-expand-sm">
+    <div class="container">
+        <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#navbar"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item dropdown">
+                    <a id="libraryDropdown" href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Library <span class="caret"></span></a>
+                    <div class="dropdown-menu" aria-labelledby="libraryDropdown">
+                        <a class="dropdown-item" href="{{ url "subtopic" "library" "houses" }}">House list</a>
+                        <a class="dropdown-item" href="{{ url "subtopic" "library" "serverinfo" }}">Server information</a>
+                        <a class="dropdown-item" href="{{ url "subtopic" "library" "support" }}">Support list</a>
+                        <a class="dropdown-item" href="{{ url "subtopic" "library" "spells" }}">Spell list</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a id="communityDropdown" href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Community <span class="caret"></span></a>
+                    <div class="dropdown-menu" aria-labelledby="communityDropdown">
+                        <a class="dropdown-item" href="{{ url "subtopic" "community" "online" }}">Who is online</a>
+                        <a class="dropdown-item" href="{{ url "subtopic" "community" "highscores" }}">Highscores</a>
+                        <a class="dropdown-item" href="{{ url "subtopic" "community" "search" }}">Search character</a>
+                        <a class="dropdown-item" href="{{ url "subtopic" "community" "guilds" "list" }}">Guild list</a>
+                        <a class="dropdown-item" href="{{ url "subtopic" "community" "guilds" "wars" }}">Guild wars</a>
+                        <a class="dropdown-item" href="{{ url "subtopic" "community" "deaths" }}">Latest deaths</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="titleheader">
+        <h1>
+            <b><a class="title" href="/">{{ serverName }}</a></b>
+        </h1>
+        <h5>{{ serverMotd }}</h5>
+        <div class="clearfix"></div>
+    </div>
+</div> <!-- .container -->
+
+<div class="container">
+    <div class="box black-box">
+        <div class="clearfix"></div>
+    </div>
+    <div class="container-fluid main-container pattern-box">
+        <div class="row">
+            <div class="col-md-8 col-lg-9">
+                <div class="card">
+                    <div class="card-body">
+                        {{ template "beforeContent" . }}

@@ -1,0 +1,25 @@
+{{ template "header.html" . }}
+<h3>Server Support</h3>
+<hr>
+{{ if .list }}
+    {{ range $index, $element := .list }}
+    <table class="table table-striped">
+        <thead class="thead-inverse">
+            <th colspan="2">Support: {{ $index }}</th>
+        </thead>
+        <tbody>
+            {{ range $player := $element }}
+            <tr>
+                <th>
+                    <a href="{{ url "subtopic" "community" "view" }}?name={{ urlEncode $player.name }}">{{ $player.name }}</a>
+                </th>
+                <td>{{ $player.lastlogin.Result }}</td>
+            </tr>
+            {{ end }}
+        </tbody>
+    </table>
+    {{ end }}
+{{ else }}
+    <p>No support members</p>
+{{ end }}
+{{ template "footer.html" . }} 

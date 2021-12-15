@@ -1,0 +1,155 @@
+{{ template "header.html" . }}
+<h3>Character profile</h3>
+<hr>
+<table class="table table-striped">
+    <thead class="thead-inverse">
+    <tr>
+        <th scope="row" colspan="2">Character information</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th>Name</th>
+        <td>{{ .info.name }}</td>
+    </tr>
+    <tr>
+        <th>Level</th>
+        <td>{{ .info.level }}</td>
+    </tr>
+    <tr>
+        <th>Vocation</th>
+        <td>{{ .info.vocation.Name }}</td>
+    </tr>
+    <tr>
+        <th>Residence</th>
+        <td>
+            <a href="{{ url "subtopic" "library" "houses" }}?town={{ .info.town.ID }}">{{ .info.town.Name }}</a>
+        </td>
+    </tr>
+    {{ if .info.guild }}
+    <tr>
+        <th>{{ .info.rank }}</th>
+        <td>
+            <a href="{{ url "subtopic" "community" "guilds" "view" }}?name={{ urlEncode .info.guild }}">{{ .info.guild }}</a>
+        </td>
+    </tr>
+    {{ end }}
+    <tr>
+        <th>Last login</th>
+        <td>{{ .info.lastlogin.Result }}</td>
+    </tr>
+    <tr>
+        <th>Last logout</th>
+        <td>{{ .info.lastlogout.Result }}</td>
+    </tr>
+    </tbody>
+</table>
+<table class="table table-striped">
+    <thead class="thead-inverse">
+    <tr>
+        <th scope="row" colspan="9">Skills</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr class="skills">
+            <td>
+                <img class="img-circle" src="/images/skills/level.gif">
+            </td>
+            <td>
+                <img class="img-circle" src="/images/skills/ml.gif">
+            </td>
+            <td>
+                <img class="img-circle" src="/images/skills/sword.gif">
+            </td>
+            <td>
+                <img class="img-circle" src="/images/skills/axe.gif">
+            </td>
+            <td>
+                <img class="img-circle" src="/images/skills/club.gif">
+            </td>
+            <td>
+                <img class="img-circle" src="/images/skills/dist.gif">
+            </td>
+            <td>
+                <img class="img-circle" src="/images/skills/def.gif">
+            </td>
+            <td>
+                <img class="img-circle" src="/images/skills/fist.gif">
+            </td>
+            <td>
+                <img class="img-circle" src="/images/skills/fish.gif">
+            </td>
+        </tr>
+        <tr class="skills">
+            <td>{{ .info.level }}</td>
+            <td>{{ .info.maglevel }}</td>
+            <td>{{ .info.skill_sword }}</td>
+            <td>{{ .info.skill_axe }}</td>
+            <td>{{ .info.skill_club }}</td>
+            <td>{{ .info.skill_dist }}</td>
+            <td>{{ .info.skill_shielding }}</td>
+            <td>{{ .info.skill_fist }}</td>
+            <td>{{ .info.skill_fishing }}</td>
+        </tr>
+    </tbody>
+</table>
+<table class="table table-striped">
+    <thead class="thead-inverse">
+        <tr>
+            <th scope="row" colspan="2">Account information</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>Creation</th>
+            <td>{{ .info.accountCreation.Result }}</td>
+        </tr>
+        <tr>
+            <th>Account type</th>
+            <td>{{ .info.accountType }}</td>
+        </tr>
+    </tbody>
+</table>
+
+{{ if .deaths }}
+<table class="table table-striped">
+    <thead class="thead-inverse">
+        <tr>
+            <th scope="row" colspan="2">Latest deaths</th>
+        </tr>
+    </thead>
+    {{ range $index, $element := .deaths }}
+    <tr>
+        <td><a href="{{ url "subtopic" "community" "view"}}?name={{ urlEncode $element.victim }}">{{ $element.victim }}</a> was killed at level {{ $element.level }} by {{ if eqNumber $element.is_player 1 }} <a href="{{ url "subtopic" "community" "view"}}?name={{ urlEncode $element.killed_by }}">{{ $element.killed_by }}</a>{{ else }}{{ $element.killed_by }}{{ end }}{{ if eqNumber $element.unjustified 1 }} <span style="color: red; font-style: italic;">unjustified</span>{{ end }}</td>
+        <td>{{ unixToDate $element.time }}</td>
+    </tr>
+    {{ end }}
+</table>
+{{ end }}
+
+{{ if .characterList }}
+<table class="table table-striped">
+    <thead class="thead-inverse">
+        <tr>
+            <th colspan="2" scope="row">Character list</th>
+        </tr>
+    </thead>
+    <tbody>
+            {{ range $index, $element := .characterList }}
+            <tr>
+                <td>
+                    <a href="{{ url "subtopic" "community" "view" }}?name={{ urlEncode $element.name }}">{{ $element.name }}</a>
+                </td>
+                <td>
+                    {{ if $element.online }}
+                        Online
+                    {{ else }}
+                        Offline
+                    {{ end }}
+                </td>
+            </tr>
+            {{ end }}
+    </tbody>
+</table>
+{{ end }}
+{{ template "footer.html" . }}

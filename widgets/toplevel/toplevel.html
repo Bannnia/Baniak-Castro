@@ -1,0 +1,17 @@
+<div class="card">
+    <div class="card-heading"><i class="fas fa-trophy"></i> Top players</div>
+    <div class="card-body">
+        <ul class="list-group list-widget">
+            {{ if .top }}
+                {{ range $index, $element := .top }}
+                    <li class="list-group-item">
+                        <a class="light" href="{{ url "subtopic" "community" "view" }}?name={{ urlEncode $element.name }}">{{ $element.name }}</a>
+                        <span class="badge float-right">{{ $element.level }}</span>
+                    </li>
+                {{ end }}
+            {{ else }}
+                No players made
+            {{ end }}
+        </ul>
+    </div>
+</div>

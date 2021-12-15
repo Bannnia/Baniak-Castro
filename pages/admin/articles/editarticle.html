@@ -1,0 +1,41 @@
+{{ template "header.html" . }}
+<script src="//cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+<h3>{{ .heading }}</h3>
+<hr>
+{{ if .validationError }}
+<div class="alert alert-danger" role="alert">
+    <strong>Error!</strong> {{ .validationError }}
+</div>
+{{ end }}
+{{ if .preview }}
+<div class="news-box">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			Preview
+		</div>
+		<div class="panel-body">
+			{{ nl2br .preview }}
+		</div>
+	</div>
+</div>
+{{ end }}
+<form action="{{ url "subtopic" "admin" "articles" .editmode }}" method="post">
+	<input type="hidden" name="_csrf" value="{{ .csrfToken }}">
+	{{ if .id }}<input type="hidden" name="id" value="{{ .id }}">{{ end }}
+	<div class="form-group">
+		<input type="text" class="form-control" name="title" placeholder="Title" {{ if .title }} value="{{ .title }}"{{ end }}>
+	</div>
+	<div class="form-group">
+		<textarea id ="article-text" class="form-control" rows="8" name="text" placeholder="Message" spellcheck="true">{{ .text }}</textarea>
+	</div>
+	<button type="submit" class="btn btn-primary" name="action" value="{{ .editmode }}">Submit</button>
+	<a class="btn btn-warning" href="{{ url "subtopic" "admin" "articles" "list" }}">Cancel</a>
+</form>
+
+{{ template "footer.html" . }}
+<script nonce={{ .nonce }}>
+    CKEDITOR.replace('article-text', {
+        extraPlugins: 'uploadimage',
+    	imageUploadUrl: '/subtopic/admin/ckeditor/image/upload?_csrf={{ .csrfToken }}',
+	});
+</script>

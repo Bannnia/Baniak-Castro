@@ -1,0 +1,28 @@
+{{ template "header.html" . }}
+<script src="//cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+<h3>New shop categories</h3>
+<hr> 
+{{ if .validationError }}
+<div class="alert alert-danger" role="alert">
+    <strong>Error!</strong> {{ .validationError }}
+</div>
+{{ end }}
+<form action="{{ url "subtopic" "admin" "shop" "category" "new" }}" method="post">
+    <input type="hidden" name="_csrf" value="{{ .csrfToken }}"> {{ if .id }}<input type="hidden" name="id" value="{{ .id }}">{{ end }}
+    <div class="form-group">
+        <input type="text" class="form-control" name="title" placeholder="Title" {{ if .title }} value="{{ .title }}" {{ end }}>
+    </div>
+    <div class="form-group">
+        <textarea id="category-text" class="form-control" rows="8" name="text" placeholder="Message" spellcheck="true">{{ .text }}</textarea>
+    </div>
+    <button type="submit" class="btn btn-primary" name="action" value="add">Submit</button>
+    <a class="btn btn-warning" href="{{ url "subtopic" "admin" "shop" }}">Cancel</a>
+</form>
+
+{{ template "footer.html" . }}
+<script nonce={{ .nonce }}>
+    CKEDITOR.replace('article-text', {
+        extraPlugins: 'uploadimage',
+        imageUploadUrl: '/subtopic/admin/ckeditor/image/upload?_csrf={{ .csrfToken }}',
+    });
+</script>
